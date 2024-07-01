@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UKM EZP : Status Operasi</title>
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+    
+</head>
+
+<body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+
+        <div class="navigation">
+            <ul>
+                <li id="logo-item">
+                    
+                    <img src="images/logo4.png" alt="LOGO UKM EZIPARCEL" class="icon" style="width:auto; max-height: 150px;">
+                    
+                    
+                </li>
+
+                <li id="menu-item-1">
+                    <a href="home.html">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">Laman Utama</span>
+                    </a>
+                </li>
+                <li id="menu-item-2">
+                    <a href="bungkusan.html">
+                        <span class="icon">
+                            <ion-icon name="cube-outline"></ion-icon>
+                        </span>
+                        <span class="title">Bungkusan</span>
+                    </a>
+                </li>
+                <li id="menu-item-3">
+                    <a href="statusoperasi.html">
+                        <span class="icon">
+                            <ion-icon name="time-outline"></ion-icon>
+                        </span>
+                        <span class="title">Status Operasi</span>
+                    </a>
+                </li>
+                <li id="menu-item-4">
+                    <a href="janjitemu.html">
+                        <span class="icon">
+                            <ion-icon name="calendar-outline"></ion-icon>
+                        </span>
+                        <span class="title">Janji Temu</span>
+                    </a>
+                </li>
+                <li id="menu-item-5">
+                    <a href="pengumuman.html">
+                        <span class="icon">
+                            <ion-icon name="notifications-outline"></ion-icon>
+                        </span>
+                        <span class="title">Pengumuman</span>
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="#" id="signOut">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Log Keluar</span>
+                    </a>
+                    
+                </li>
+            </ul>
+        </div>
+
+        <!-- ========================= Main ==================== -->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                  <ion-icon name="menu-outline"></ion-icon>
+                </div>
+              
+                <div class="user">
+                  <div>
+                    <h3 id="stafID"> </h3> 
+                    <h4 style="font-weight: 350;"></h4>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="header-container">
+                <h1>Status Operasi</h1>
+            </div>
+            <!-- ======================= Cards ================== -->
+            <div class="cardRow">
+                <div class="card" id="bukaCard" style="background-color: green;">
+                    <div>
+                        <div class="numbers" style="color:white;">BUKA</div>
+                    </div>
+                </div>
+            
+                <div class="card" id="tutupCard" style="background-color: red;">
+                    <div>
+                        <div class="numbers" style="color:white">TUTUP</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="so-info">
+                <h2 id="tarikh">TARIKH :</h2>
+                <h3 id="tarikhValue"></h3>
+                
+                <h2 id="masaOperasi">MASA OPERASI :</h2>
+                <h3 id="masaOperasiValue"></h3>
+                
+                <h2 id="updatedTimestamp">DIKEMASKINI PADA :</h2>
+                <h3 id="updatedTimestampValue"></h3>
+                
+            <a href="newstatusoperasi.html"><button>KEMASKINI</button></a>
+            </div>
+        </div>
+
+
+       
+    </div>
+
+    <!-- =========== Scripts =========  -->
+    <script type="module" src="assets/js/statusoperasi.js"></script>
+
+    <!-- ====== ionicons ======= -->
+    <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    
+</body>
+
+</html>

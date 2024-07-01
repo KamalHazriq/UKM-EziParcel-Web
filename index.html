@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/login_style.css">
+    <title>UKM EZP : Log Masuk</title>
+    <script type="module" src="assets/js/login.js" defer></script>
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="login__content">
+            <img src="images/background.png" alt="background" class="login__img">
+
+            <form action="" class="login__form">
+                <div>
+                    <h1 class="login__title">
+                        <span>Selamat Datang ke</span> <br>
+                         UKM EziParcel
+                    </h1>
+                    <p class="login__description">
+                        Sila Log Masuk untuk teruskan.
+                    </p>
+                </div>
+                
+                <div>
+                    <div class="login__inputs">
+                        <div>
+                            <label for="idpengguna" class="login__label">EMEL PENGGUNA</label>
+                            <input type="email" placeholder="Emel..." required class="login__input" id="idpengguna">
+                        </div>
+
+                        <div>
+                            <label for="input-pass" class="login__label">Password</label>
+
+                            <div class="login__box">
+                                <input type="password" placeholder="Masukkan Kata Laluan" required class="login__input" id="password">
+                                <i class="ri-eye-off-line login__eye" id="inputicon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="login__buttons">
+                        <button type= submit id=submit class="login__button">Log Masuk</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
+

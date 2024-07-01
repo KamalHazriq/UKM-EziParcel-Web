@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UKM EZP : JANJI TEMU</title>
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li id="logo-item">
+
+                    <img src="images/logo4.png" alt="LOGO UKM EZIPARCEL" class="icon"
+                        style="width:auto; max-height: 150px;">
+
+
+                </li>
+
+                <li id="menu-item-1">
+                    <a href="home.html">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">Laman Utama</span>
+                    </a>
+                </li>
+                <li id="menu-item-2">
+                    <a href="bungkusan.html">
+                        <span class="icon">
+                            <ion-icon name="cube-outline"></ion-icon>
+                        </span>
+                        <span class="title">Bungkusan</span>
+                    </a>
+                </li>
+                <li id="menu-item-3">
+                    <a href="statusoperasi.html">
+                        <span class="icon">
+                            <ion-icon name="time-outline"></ion-icon>
+                        </span>
+                        <span class="title">Status Operasi</span>
+                    </a>
+                </li>
+                <li id="menu-item-4">
+                    <a href="janjitemu.html">
+                        <span class="icon">
+                            <ion-icon name="calendar-outline"></ion-icon>
+                        </span>
+                        <span class="title">Janji Temu</span>
+                    </a>
+                </li>
+                <li id="menu-item-5">
+                    <a href="pengumuman.html">
+                        <span class="icon">
+                            <ion-icon name="notifications-outline"></ion-icon>
+                        </span>
+                        <span class="title">Pengumuman</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" id="signOut">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Log Keluar</span>
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+
+        <!-- ========================= Main ==================== -->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+                <div class="user">
+                    <div>
+                        <h3 id="stafID"> </h3>
+                        <h4 style="font-weight: 350;"></h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-container">
+                <div style="display: flex; align-items: center;">
+                    <button class="back-button" onclick="goBack()">
+                        <ion-icon name="arrow-back-outline"></ion-icon>
+                    </button>
+                    <h1>Butiran Bungkusan</h1>
+                </div>
+            </div>
+
+            <!-- ======================= Cards ================== -->
+            <div class="cardBox">
+                <div class="card">
+                    <div class="detailsContainer">
+                        <div class="details">
+                            <p class="detail-label">NO PENGESANAN:</p>
+                            <p class="detail-value" id="noPengesananValue"></p>
+                            <p class="detail-label">NAMA BUNGKUSAN:</p>
+                            <p class="detail-value" id="namaBungkusanValue"></p>
+                            
+                            <p class="detail-label">MASA JANJI TEMU:</p>
+                            <p class="detail-value" id="masaValue"></p>
+                            <p class="detail-label">LOKASI BUNGKUSAN:</p>
+                            <p class="detail-value" id="lokasiValue"></p>
+                            <p class="detail-label">WAKIL:</p>
+                            <p class="detail-value" id="wakilValue"></p>
+                            
+                        </div>
+                        <div class="info-right">
+                            <p>ID BUNGKUSAN:  <span id="idBungkusanValue"></span></p>
+
+                            <img id="bungkusanImage" class="bungkusan-image" alt="Bungkusan Image">
+                            
+                        </div>
+                        <button id="sudahbutton">SUDAH DIAMBIL !</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =========== Scripts ========= -->
+        <script type="module" src="assets/js/butiranjanjitemu.js"></script>
+        <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+        <script>
+            function goBack() {
+                window.location.href = "janjitemu.html";
+            }
+        </script>
+</body>
+
+</html>

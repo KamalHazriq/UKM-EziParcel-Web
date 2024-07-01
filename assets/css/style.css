@@ -1,0 +1,742 @@
+/* =========== Google Fonts ============ */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+/* =============== Globals ============== */
+* {
+  font-family:"Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --blue: #0D1282;
+  --white: #fff;
+  --gray: #f5f5f5;
+  --black1: #222;
+  --black2: #999;
+  --red: #dd0f0f;
+  --bg : #ECEDDA;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  
+}
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.blur {
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+/* =============== Navigation ================ */
+.navigation {
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  background: var(--blue);
+  border-left: 10px solid var(--blue);
+  transition: 0.5s;
+  overflow: hidden;
+}
+.navigation.active {
+  width: 150px;
+}
+
+.navigation ul {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.navigation ul li {
+  position: relative;
+  width: 95%;
+  list-style: none;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  transition: width 0.5s;
+}
+
+.navigation.active ul li {
+  width: 45%;
+}
+
+
+.navigation ul li:hover {
+  background-color: var(--red);
+}
+
+.navigation ul li.active {
+    background-color: var(--red);
+}
+
+
+.navigation ul li:nth-child(1) {
+  margin-bottom: 40px;
+  pointer-events: none;
+}
+
+.navigation ul li a {
+  position: relative;
+  display: block;
+  width: 100%;
+  display: flex;
+  text-decoration: none;
+  color: var(--white);
+}
+.navigation ul li:hover a,
+.navigation ul li.hovered a {
+  color: var(--white);
+}
+
+.navigation ul li a .icon {
+  position: relative;
+  display: block;
+  min-width: 60px;
+  height: 60px;
+  line-height: 75px;
+  text-align: center;
+}
+.navigation ul li a .icon ion-icon {
+  font-size: 1.75rem;
+}
+
+.navigation ul li a .title {
+  position: relative;
+  display: block;
+  padding: 0 10px;
+  height: 60px;
+  line-height: 60px;
+  text-align: start;
+  white-space: nowrap;
+}
+
+#logo-item {
+  display: relative;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 15px; /* Adjust padding as needed */
+}
+
+
+
+
+
+/* ===================== Main ===================== */
+.main {
+  position: absolute;
+  width: calc(100% - 300px);
+  left: 300px;
+  min-height: 100vh;
+  background: var(--bg);
+  transition: 0.5s;
+}
+.main.active {
+  width: calc(100% - 80px);
+  left: 80px;
+}
+
+
+.back-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-right: 10px;
+}
+
+.back-button ion-icon {
+  font-size: 24px;
+}
+
+.topbar {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.toggle {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  cursor: pointer;
+}
+
+.search {
+  position: relative;
+  width: 400px;
+  margin: 0 10px;
+}
+
+.search label {
+  position: relative;
+  width: 100%;
+}
+
+.search label input {
+  width: 100%;
+  height: 40px;
+  border-radius: 40px;
+  padding: 5px 20px;
+  padding-left: 35px;
+  font-size: 18px;
+  outline: none;
+  border: 1px solid var(--black2);
+}
+
+.search label ion-icon {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  font-size: 1.2rem;
+}
+
+.user {
+  display: flex; /* Use flexbox */
+  align-items: center; 
+  position: relative;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.user h2, .user h3 {
+  margin: 0; /* Remove default margins */
+}
+
+.title h1{
+  font-size: 40px ;
+  margin-top: 50px;
+  margin-left: 20px;
+  font-weight: 600;
+  color: var(--black1);
+  margin-bottom: 50px;
+}
+
+.title h2{
+  font-size: 25px ;
+  margin-top: 20px;
+  margin-left: 20px;
+  font-weight: 200;
+  color: var(--black1);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.header-container h1 {
+  margin-left: 20px;
+  margin-right: 20px; /* Adjust margin as needed */
+}
+
+.header-container h2 {
+  font-size: 1.5em;
+  margin-top: 0; /* Ensures no extra space at the top */
+  margin-left: 20px;
+  margin-right: 20px; /* Adjust margin as needed */
+  color: #000000; /* Adjust this value for desired color */
+}
+
+.header-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.header-buttons button {
+  margin-right: 10px; 
+}
+
+
+
+/* ======================= Cards ====================== */
+
+.cardRow{
+  position: relative;
+  width: 100%; 
+  margin-left: 20px;
+  padding: 20px;
+  display: flex; 
+  flex-direction: row; 
+  gap: 40px;
+  
+}
+
+.cardRow .card{
+  position: relative;
+  padding: 30px;
+  border-radius: 20px;
+  margin-bottom: 30px; /* Add margin between cards */
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  max-height: 75px;
+  border:solid;
+  width: 300px;
+}
+
+.cardRow .card .numbers {
+  top: -20px;
+  position: relative;
+  font-weight: 500;
+  font-size: 30px; /* Adjust font size of numbers */
+}
+
+.cardBox {
+  position: relative;
+  width: 100%; /* Adjust the width as needed */
+  margin: 0 auto; /* Center the cards horizontally */
+  padding: 20px;
+  display: flex; /* Change to flexbox */
+  flex-direction: column; /* Align cards vertically */
+}
+
+.cardBox .card {
+  position: relative;
+  background: var(--white);
+  padding: 30px;
+  border-radius: 20px;
+  margin-bottom: 20px; /* Add margin between cards */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+}
+
+.cardBox .card .add {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardBox .card .add label {
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: -18px; /* Add margin between label and input */
+}
+
+.cardBox .card .add input,
+.cardBox .card .add select {
+  border: 1px solid #000000; /* Solid border */
+  border-radius: 7px; /* Border radius */
+  padding: 8px; /* Padding inside the input box */
+  margin-bottom: 3px; /* Add margin between inputs */
+  width: 300px;
+}
+
+.cardBox .card .add input[type="file"] {
+  padding: 0; /* No padding for file input */
+  border:none;
+  border-radius: 0px;
+}
+
+.cardBox .card .add button {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  
+}
+
+.cardBox .card .numbers {
+  top: -20px;
+  position: relative;
+  font-weight: 500;
+  font-size: 2rem; /* Adjust font size of numbers */
+  color: var(--blue);
+}
+
+.cardBox .card .author {
+  font-size: 14px; /* Adjust font size of author */
+  margin-top: -20px; /* Adjust margin between title and author */
+  margin-bottom: 30px;
+}
+
+.cardBox .timestamp {
+  position: absolute;
+  top: 15px; /* Adjust the top position as needed */
+  right: 15px; /* Adjust the right position as needed */
+  background-color: var(--blue);
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.detailsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.detailsContainer .details {
+  display: flex;
+  flex-direction: column;
+}
+
+.detailsContainer .details .detail-label {
+  font-weight: 500;
+  margin-bottom: -18px;
+  font-size: 20px;
+  
+}
+
+.detailsContainer .details .detail-value {
+  margin-bottom:3px;
+  font-size: 18px;
+  width: 300px;
+}
+
+.detailsContainer .info-right {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-size: 17px;
+  width: 700px;
+  
+}
+
+.detailsContainer .info-right p {
+  margin-top: 20px;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.detailsContainer .info-right span {
+  
+  font-weight: 100;
+}
+
+
+.cardBox .card .bungkusan-image {
+  max-width: 300px;
+  height: auto;
+  display: block;  
+  
+}
+
+
+
+.so-info{
+  margin-left:40px; 
+  
+}
+
+.so-info h2{
+  font-weight: 500;
+  margin-bottom: 0px;
+}
+
+.so-info h3{
+  font-weight: 200;
+  margin-bottom: 30px;
+}
+
+.cardBox .card .adds {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardBox .card .adds label {
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 10px; /* Add margin between label and input */
+}
+
+.cardBox .card .adds input {
+  border: 1px solid #000000; /* Solid border */
+  border-radius: 7px; /* Border radius */
+  padding: 8px; /* Padding inside the input box */
+  margin-bottom: 30px; /* Add margin between inputs */
+  width: 300px;
+}
+
+.cardBox .card .adds textarea {
+  border: 1px solid #000000; /* Solid border */
+  border-radius: 7px; /* Border radius */
+  padding: 8px; /* Padding inside the input box */
+  margin-bottom: 100px; /* Add margin between inputs */
+  width: 800px;
+  height: 200px;
+}
+
+.cardBox .card .adds button {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  
+}
+
+.cardBox .card .detailsContainer button {
+  position: absolute;
+  bottom: 40px;
+  right: 120px;
+  
+
+  background-color: rgb(61, 255, 3); 
+  border: solid 1px ; 
+  color: black; 
+  padding: 4px 10px; 
+  font-size: 20px; 
+  cursor: pointer; 
+  display: inline-block; /* Make the button inline-block for auto sizing */
+  border-radius: 20px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Optional: Add some shadow for depth */
+}
+
+#kemaskinibutton {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  
+
+  background-color: #F0DE36; 
+  border: solid 1px ; 
+  color: black; 
+  padding: 4px 10px; 
+  font-size: 14px; 
+  cursor: pointer; 
+  display: inline-block; /* Make the button inline-block for auto sizing */
+  border-radius: 20px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Optional: Add some shadow for depth */
+}
+
+/* ================== Order Details List ============== */
+.details {
+  position: relative;
+  width: 150%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 30px;
+  /* margin-top: 10px; */
+}
+
+.details .recentOrders {
+  position: relative;
+  display: grid;
+  min-height: 100px;
+  background: var(--white);
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+}
+
+.details .recentOrders .sdh{
+  
+
+  background-color: rgb(61, 255, 3); 
+  border: solid 1px ; 
+  color: black; 
+  padding: 4px 10px; 
+  font-size: 14px; 
+  cursor: pointer; 
+  display: inline-block; /* Make the button inline-block for auto sizing */
+  border-radius: 20px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Optional: Add some shadow for depth */
+  
+}
+
+.details .cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.cardHeader h2 {
+  font-weight: 600;
+  color: var(--blue);
+}
+.cardHeader .btn {
+  position: relative;
+  padding: 5px 10px;
+  background: var(--blue);
+  text-decoration: none;
+  color: var(--white);
+  border-radius: 6px;
+}
+
+.details table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.details table th,
+.details table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.details table th {
+  font-weight: 600;
+}
+
+.details table tbody tr:hover {
+  background: rgba(13, 18, 130, 1);;
+  color: var(--white);
+}
+
+.details table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.status.delivered {
+  
+  padding: 0px 10px;
+  background: rgb(61, 255, 3);
+  color: var(--black1);
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Optional: Add some shadow for depth */
+
+}
+.status.pending {
+  
+  padding: 0px 10px;
+  background: #ffe600;
+  color: var(--black1);
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Optional: Add some shadow for depth */
+
+}
+.status.return {
+ 
+  padding: 0px 10px;
+  background: rgb(255, 69, 69);
+  color: var(--black1);
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Optional: Add some shadow for depth */
+
+}
+
+button {
+  background-color: #F0DE36; 
+  border: solid 1px ; 
+  color: black; 
+  padding: 4px 10px; 
+  font-size: 14px; 
+  cursor: pointer; 
+  display: inline-block; /* Make the button inline-block for auto sizing */
+  border-radius: 20px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Optional: Add some shadow for depth */
+  
+}
+
+
+
+
+/* ====================== Responsive Design ========================== */
+@media (max-width: 991px) {
+  .navigation {
+    left: -300px;
+  }
+  .navigation.active {
+    width: 300px;
+    left: 0;
+  }
+
+  .navigation.active ul li {
+    position: relative;
+    width: 95%;
+    list-style: none;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    transition: width 0.5s;
+  }
+
+  .main {
+    width: 100%;
+    left: 0;
+  }
+  .main.active {
+    left: 300px;
+  }
+  .cardBox {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .details {
+    grid-template-columns: 1fr;
+  }
+  .recentOrders {
+    overflow-x: auto;
+  }
+  .status.inProgress {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .cardBox {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .cardHeader h2 {
+    font-size: 20px;
+  }
+  .user {
+    min-width: 40px;
+  }
+  .navigation {
+    width: 100%;
+    left: -100%;
+    z-index: 1000;
+  }
+  .navigation.active {
+    width: 100%;
+    left: 0;
+  }
+  .navigation.active ul li {
+    position: relative;
+    width: 95%;
+    list-style: none;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    transition: width 0.5s;
+  }
+
+  .toggle {
+    z-index: 10001;
+  }
+  .main.active .toggle {
+    color: #fff;
+    position: fixed;
+    right: 0;
+    left: initial;
+  }
+}

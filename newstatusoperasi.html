@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UKM EZP : Status Operasi</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li id="logo-item">
+                    <img src="images/logo4.png" alt="LOGO UKM EZIPARCEL" class="icon" style="width:auto; max-height: 150px;">
+                </li>
+                <li id="menu-item-1">
+                    <a href="home.html">
+                        <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+                        <span class="title">Laman Utama</span>
+                    </a>
+                </li>
+                <li id="menu-item-2">
+                    <a href="bungkusan.html">
+                        <span class="icon"><ion-icon name="cube-outline"></ion-icon></span>
+                        <span class="title">Bungkusan</span>
+                    </a>
+                </li>
+                <li id="menu-item-3">
+                    <a href="statusoperasi.html">
+                        <span class="icon"><ion-icon name="time-outline"></ion-icon></span>
+                        <span class="title">Status Operasi</span>
+                    </a>
+                </li>
+                <li id="menu-item-4">
+                    <a href="janjitemu.html">
+                        <span class="icon"><ion-icon name="calendar-outline"></ion-icon></span>
+                        <span class="title">Janji Temu</span>
+                    </a>
+                </li>
+                <li id="menu-item-5">
+                    <a href="pengumuman.html">
+                        <span class="icon"><ion-icon name="notifications-outline"></ion-icon></span>
+                        <span class="title">Pengumuman</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="signOut">
+                        <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                        <span class="title">Log Keluar</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle"><ion-icon name="menu-outline"></ion-icon></div>
+                <div class="user">
+                    <div>
+                        <h3 id="stafID"></h3>
+                        <h4 style="font-weight: 350;"></h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-container">
+                <div style="display: flex; align-items: center;">
+                    <button class="back-button" onclick="goBack()">
+                        <ion-icon name="arrow-back-outline"></ion-icon>
+                    </button>
+                    <h1>Kemaskini Status Operasi</h1>
+                </div>
+            </div>
+
+            <div class="cardBox">
+                <div class="card">
+                    <div class="add">
+                        <label for="openTime">MASA BUKA :</label><br>
+                        <select id="openTime" required></select><br>
+                        <label for="closeTime">MASA TUTUP:</label><br>
+                        <select id="closeTime" required></select><br>
+                        <label for="slot">SLOT JANJI TEMU:</label><br>
+                        <input type="number" id="slot" value="4"><br><br>
+                        <button id="updateStatusBtn">KEMASKINI</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type=module src="assets/js/newstatusoperasi.js"></script>
+    <script>
+        function goBack() {
+            window.location.href = "statusoperasi.html";
+        }
+    </script>
+
+    <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>
