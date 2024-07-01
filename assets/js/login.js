@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           // Redirect to index.html upon successful login
           alert("Berjaya Log Masuk! Anda adalah : " + capitalizedUsername);
-          window.location.href = "../../home.html";
+          window.location.href = "home.html";
         })
         .catch((error) => {
           // Display error message
