@@ -118,7 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
   });
 
-  // Function to update shop operation hours
   const updateShopHours = async (openTime, closeTime, slots) => {
     const currentDate = new Date();
     const timestamp = serverTimestamp();
@@ -140,7 +139,6 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Status Operasi berjaya kemaskini!");
       console.log("Status Operasi berjaya kemaskini!");
 
-       // Generate and save time slots
        await generateTimeSlots(openTime, closeTime, capitalizedUsername,slots);
 
 

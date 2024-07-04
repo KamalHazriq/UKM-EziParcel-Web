@@ -115,7 +115,7 @@ const generateNextId = () => {
   return nextId;
 };
 
-// Function to add a new bungkusan
+// Tambah bungkusan ke pangkalan data
 const addBungkusan = async (user) => {
   const noPengesanan = document.getElementById("no_pengesanan").value.trim();
   const namaBungkusan = document.getElementById("nama_bungkusan").value.trim();
@@ -134,16 +134,16 @@ const addBungkusan = async (user) => {
   const capitalizedUsername = username.toUpperCase();
 
   try {
-    await getLatestId(); // Retrieve the latest ID from Firestore
-    // Generate the new ID
+    await getLatestId();
+    // Jana ID Baru
     const newId = generateNextId();
 
-     // Upload image to Firebase Storage
+     // Muat Naik gambar bungkusan ke pangkalan data
      const storageRef = ref(storage, `bungkusan/${newId}`);
      await uploadBytes(storageRef, gambarBungkusan);
      const gambarURL = await getDownloadURL(storageRef);
 
-    // Add the bungkusan to Firestore
+    // Tambah bungkusan ke pangkalan data
     await addDoc(collection(db, "bungkusan"), {
       bungkusanID: newId,
       stafID: capitalizedUsername,
@@ -157,7 +157,7 @@ const addBungkusan = async (user) => {
     alert("Bungkusan berjaya disimpan.");
     window.location.href = "bungkusan.html";
   } catch (error) {
-    console.error("Error adding bungkusan: ", error);
+    console.error("Ralat Menambah Bungkusan: ", error);
   }
 };
 

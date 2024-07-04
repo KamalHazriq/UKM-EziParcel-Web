@@ -4,11 +4,15 @@ import {
   getAuth,
   signInWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
-
-
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCUP1GicCdH32LxTw692YwZbCJlsCwTvRs",
   authDomain: "ukm-eziparcel-c71bc.firebaseapp.com",
@@ -21,6 +25,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// Initialize Firestore
+const db = getFirestore(app);
+
 // Export auth object
 export const auth = getAuth();
 
@@ -32,58 +39,63 @@ document.addEventListener("DOMContentLoaded", () => {
   // Check if the submit button exists
   if (submit) {
     // Add click event listener to the submit button
-    submit.addEventListener("click", (event) => {
+    submit.addEventListener("click", async (event) => {
       event.preventDefault();
 
-      // Get email and password inputs
+      // Dapatkan input
       const email = document.getElementById("idpengguna").value;
       const password = document.getElementById("password").value;
 
-      // Sign in with email and password
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
-          const username = email.split("@")[0];
-          const capitalizedUsername = username.toUpperCase();
+        // Mencari staf di pangkalan data
+        const stafQuery = query(collection(db, "staf"), where("emel", "==", email));
+        const querySnapshot = await getDocs(stafQuery);
 
-          // Redirect to index.html upon successful login
-          alert("Berjaya Log Masuk! Anda adalah : " + capitalizedUsername);
+        if (!querySnapshot.empty) {
+          const stafData = querySnapshot.docs[0].data();
+          const name = stafData.nama;
+          const stafId = stafData.staf_id;
+          const capitalizedName = name.toUpperCase();
+
+          alert(`Berjaya Log Masuk!\n\nAnda Adalah : ${capitalizedName} (${stafId})`);
           window.location.href = "home.html";
-        })
-        .catch((error) => {
-          // Display error message
-          alert("Log Masuk Tidak Berjaya, Sila Cuba Lagi...\n\n" +error.message)
-          
-        });
+        } else {
+          alert("Staf tidak dijumpai dalam pangkalan data.");
+        }
+      } catch (error) {
+        alert("Log Masuk Tidak Berjaya, Sila Cuba Lagi...\n\n" + error.message);
+      }
     });
   }
 });
 
 /*=============== SHOW HIDDEN - PASSWORD ===============*/
-const showHiddenPass = (inputPass, inputIcon) =>{
-   const input = document.getElementById(inputPass),
-         iconEye = document.getElementById(inputIcon)
-         
-   iconEye.addEventListener('click', () =>{
-       // Change password to text
-       if(input.type === 'password'){
-           // Switch to text
-           input.type = 'text'
+const showHiddenPass = (inputPass, inputIcon) => {
+  const input = document.getElementById(inputPass),
+    iconEye = document.getElementById(inputIcon);
 
-           // Add icon
-           iconEye.classList.add('ri-eye-line')
-           // Remove icon
-           iconEye.classList.remove('ri-eye-off-line')
-       }else{
-           // Change to password
-           input.type = 'password'
+  iconEye.addEventListener('click', () => {
+    // Change password to text
+    if (input.type === 'password') {
+      // Switch to text
+      input.type = 'text';
 
-           // Remove icon
-           iconEye.classList.remove('ri-eye-line')
-           // Add icon
-           iconEye.classList.add('ri-eye-off-line')
-       }
-   })
+      // Add icon
+      iconEye.classList.add('ri-eye-line');
+      // Remove icon
+      iconEye.classList.remove('ri-eye-off-line');
+    } else {
+      // Change to password
+      input.type = 'password';
+
+      // Remove icon
+      iconEye.classList.remove('ri-eye-line');
+      // Add icon
+      iconEye.classList.add('ri-eye-off-line');
+    }
+  });
 }
 
-showHiddenPass('password','inputicon')
+showHiddenPass('password', 'inputicon');
