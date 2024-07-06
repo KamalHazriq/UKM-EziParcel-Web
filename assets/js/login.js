@@ -47,8 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const password = document.getElementById("password").value;
 
       try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-
+        await signInWithEmailAndPassword(auth, email, password);
+        
         // Mencari staf di pangkalan data
         const stafQuery = query(collection(db, "staf"), where("emel", "==", email));
         const querySnapshot = await getDocs(stafQuery);

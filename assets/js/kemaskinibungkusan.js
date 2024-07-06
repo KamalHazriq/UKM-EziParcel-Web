@@ -10,7 +10,11 @@ import {
   doc, 
   getDoc, 
   updateDoc, 
-  serverTimestamp  
+  serverTimestamp,
+  where,
+  query,
+  collection,
+  getDocs,  
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 import {
   getStorage,
@@ -38,17 +42,30 @@ const storage = getStorage(app);
 export const auth = getAuth();
 export { signOut };
 
+let globalStafId = "";
+let globalCapitalizedName = "";
+
 // Wait for the DOM to fully load
 document.addEventListener("DOMContentLoaded", () => {
 
   // Check if user is signed in
- onAuthStateChanged(auth, (user) => {
-  if (user) {
-    const email = user.email;
-    const username = email.split("@")[0];
-    const capitalizedUsername = username.toUpperCase();
-    const stafID = document.getElementById("stafID");
-    stafID.textContent = capitalizedUsername;
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const email = user.email;
+  
+        const stafQuery = query(collection(db, "staf"), where("emel", "==", email));
+        const querySnapshot = await getDocs(stafQuery);
+  
+        if (!querySnapshot.empty) {
+          const stafData = querySnapshot.docs[0].data();
+          const name = stafData.nama;
+          globalStafId = stafData.staf_id;
+          globalCapitalizedName = name.toUpperCase();
+  
+          // Update the HTML elements
+          document.getElementById("nama").textContent = globalCapitalizedName;
+          document.getElementById("stafID").textContent = globalStafId;
+        }
 
     // Fetch and populate existing bungkusan data
     fetchBungkusanDetails();
@@ -84,6 +101,18 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
   }
+
+  // Get the back button
+  const backButton = document.querySelector(".back-button");
+
+  if (backButton) {
+    backButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.history.back(); // Go back to the previous page
+    });
+  }
+
+
 });
 
 // Function to fetch and populate existing bungkusan details based on ID
@@ -128,14 +157,10 @@ const updateBungkusan = async () => {
     return; // Stop further execution
   }
 
-  const userEmail = auth.currentUser.email;
-  const username = userEmail.split("@")[0];
-  const capitalizedUsername = username.toUpperCase();
-
   try {
     const bungkusanDoc = doc(db, "bungkusan", bungkusanID);
     const bungkusanData = {
-      stafID: capitalizedUsername,
+      staf: `${globalStafId} ${globalCapitalizedName}`,
       no_pengesanan: noPengesanan,
       nama_bungkusan: namaBungkusan,
       status_bungkusan: statusBungkusan,
@@ -155,7 +180,7 @@ const updateBungkusan = async () => {
     // Update the bungkusan in Firestore
     await updateDoc(bungkusanDoc, bungkusanData);
 
-    alert("Bungkusan berjaya dikemaskini.");
+    alert("Bungkusan berjaya dikemas kini.");
     window.location.href = "bungkusan.html";
   } catch (error) {
     console.error("Error updating bungkusan: ", error);

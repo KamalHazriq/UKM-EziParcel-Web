@@ -15,7 +15,8 @@ import {
   deleteDoc,
   updateDoc,
   doc,
-  getDoc
+  getDoc,
+  where
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
 // Your web app's Firebase configuration
@@ -41,13 +42,23 @@ export { signOut };
 document.addEventListener("DOMContentLoaded", async () => {
 
   // Check if user is signed in
- onAuthStateChanged(auth, (user) => {
-  if (user) {
-    const email = user.email;
-    const username = email.split("@")[0];
-    const capitalizedUsername = username.toUpperCase();
-    const stafID = document.getElementById("stafID");
-    stafID.textContent = capitalizedUsername;
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const email = user.email;
+  
+        const stafQuery = query(collection(db, "staf"), where("emel", "==", email));
+        const querySnapshot = await getDocs(stafQuery);
+  
+        if (!querySnapshot.empty) {
+          const stafData = querySnapshot.docs[0].data();
+          const name = stafData.nama;
+          const stafId = stafData.staf_id;
+          const capitalizedName = name.toUpperCase();
+  
+          // Update the HTML elements
+          document.getElementById("nama").textContent = capitalizedName;
+          document.getElementById("stafID").textContent = stafId;
+        }
     
   }
 });
@@ -67,8 +78,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       querySnapshot.forEach((doc) => {
         const pengumumanData = doc.data();
         const title = pengumumanData.tajuk.toLowerCase();
+        const isi = pengumumanData.isi.toLowerCase();
 
-        if (title.includes(searchText)) {
+        if (title.includes(searchText)||isi.includes(searchText)) {
           // Display only the announcements that match the search text
           const card = document.createElement("div");
           card.classList.add("card");
@@ -76,7 +88,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           card.innerHTML = `
             <div>
               <div class="numbers">${pengumumanData.tajuk}</div>
-              <div class="author">${pengumumanData.author}</div>
+              <div class="author">${pengumumanData.staf}</div>
               <div class="timestamp">${timestamp}</div>
               <div class="isi">${pengumumanData.isi}</div>
             </div>
@@ -131,7 +143,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         card.innerHTML = `
           <div>
             <div class="numbers">${pengumumanData.tajuk}</div>
-            <div class="author">${pengumumanData.author}</div>
+            <div class="author">${pengumumanData.staf}</div>
             <div class="timestamp">${timestamp}</div>
             <div class="isi">${pengumumanData.isi}</div>
           </div>

@@ -11,7 +11,11 @@ import {
   setDoc,
   serverTimestamp,
   collection,
-  addDoc
+  addDoc,
+  query,
+  where,
+  getDocs,
+  deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
 // Your web app's Firebase configuration
@@ -29,16 +33,29 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth();
 
+let globalStafId = "";
+let globalCapitalizedName = "";
+
 // Wait for the DOM to fully load
 document.addEventListener("DOMContentLoaded", () => {
   // Check if user is signed in
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, async (user) => {
     if (user) {
       const email = user.email;
-      const username = email.split("@")[0];
-      const capitalizedUsername = username.toUpperCase();
-      const stafID = document.getElementById("stafID");
-      stafID.textContent = capitalizedUsername;
+  
+        const stafQuery = query(collection(db, "staf"), where("emel", "==", email));
+        const querySnapshot = await getDocs(stafQuery);
+  
+        if (!querySnapshot.empty) {
+          const stafData = querySnapshot.docs[0].data();
+          const name = stafData.nama;
+          globalStafId = stafData.staf_id;
+          globalCapitalizedName = name.toUpperCase();
+  
+          // Update the HTML elements
+          document.getElementById("nama").textContent = globalCapitalizedName;
+          document.getElementById("stafID").textContent = globalStafId;
+        }
     }
   });
 
@@ -121,12 +138,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const updateShopHours = async (openTime, closeTime, slots) => {
     const currentDate = new Date();
     const timestamp = serverTimestamp();
-    const userEmail = auth.currentUser.email;
-    const username = userEmail.split("@")[0];
-    const capitalizedUsername = username.toUpperCase();
+    
 
     const data = {
-      author: capitalizedUsername,
+      staf: `${globalStafId} ${globalCapitalizedName}`,
       tarikh: currentDate.toDateString(),
       masabuka: openTime,
       masatutup: closeTime,
@@ -136,20 +151,21 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const shopStatusRef = doc(db, "statusoperasi", "SO1");
       await setDoc(shopStatusRef, data, { merge: true });
-      alert("Status Operasi berjaya kemaskini!");
-      console.log("Status Operasi berjaya kemaskini!");
-
-       await generateTimeSlots(openTime, closeTime, capitalizedUsername,slots);
-
-
-      window.location.href = "statusoperasi.html";
+      await deletePastSlots();
+      alert("Status Operasi berjaya kemas kini!");
+      console.log("Status Operasi berjaya kemas kini!");
+      
+       await generateTimeSlots(openTime, closeTime, slots);
+       
+       window.location.href = "statusoperasi.html";
+      
     } catch (error) {
       console.error("Error updating shop hours:", error);
     }
   };
 
   // Function to generate time slots and save to Firestore
-  const generateTimeSlots = async (openTime, closeTime, username, slots) => {
+  const generateTimeSlots = async (openTime, closeTime, slots) => {
     const [openHour, openMinute] = openTime.split(":").map(Number);
     const [closeHour, closeMinute] = closeTime.split(":").map(Number);
 
@@ -184,8 +200,27 @@ document.addEventListener("DOMContentLoaded", () => {
         currentMinute = 0;
       }
     }
+    
   };
 
+
+ // Function to delete past slots
+const deletePastSlots = async () => {
+  try {
+    const slotjtCollection = collection(db, "slot_jt");
+    const slotjtSnapshot = await getDocs(slotjtCollection);
+
+    const deletePromises = slotjtSnapshot.docs.map(async (doc) => {
+      await deleteDoc(doc.ref);
+    });
+
+    await Promise.all(deletePromises);
+
+    console.log("Deleted past slots in slot_jt collection.");
+  } catch (error) {
+    console.error("Error deleting past slots:", error);
+  }
+};
 
 
   // Function to handle button click event

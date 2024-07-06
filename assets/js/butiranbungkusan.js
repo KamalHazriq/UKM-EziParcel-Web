@@ -9,6 +9,10 @@ import {
   getFirestore,
   doc,
   getDoc,
+  where,
+  query,
+  collection,
+  getDocs
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 import {
   getStorage,
@@ -61,13 +65,23 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Check if user is signed in
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, async (user) => {
     if (user) {
       const email = user.email;
-      const username = email.split("@")[0];
-      const capitalizedUsername = username.toUpperCase();
-      const stafID = document.getElementById("stafID");
-      stafID.textContent = capitalizedUsername;
+  
+        const stafQuery = query(collection(db, "staf"), where("emel", "==", email));
+        const querySnapshot = await getDocs(stafQuery);
+  
+        if (!querySnapshot.empty) {
+          const stafData = querySnapshot.docs[0].data();
+          const name = stafData.nama;
+          const stafId = stafData.staf_id;
+          const capitalizedName = name.toUpperCase();
+  
+          // Update the HTML elements
+          document.getElementById("nama").textContent = capitalizedName;
+          document.getElementById("stafID").textContent = stafId;
+        }
       // Fetch and display bungkusan data
       fetchBungkusanDetails();
     }
@@ -109,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("idBungkusanValue").textContent =
           bungkusanData.bungkusanID;
         document.getElementById("idStafValue").textContent =
-          bungkusanData.stafID;
+          bungkusanData.staf;
         document.getElementById("tarikhValue").textContent = date;
         document.getElementById("masaValue").textContent = time;
 

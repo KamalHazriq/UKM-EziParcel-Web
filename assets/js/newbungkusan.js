@@ -13,7 +13,8 @@ import {
   query, 
   orderBy, 
   limit,
-  serverTimestamp  
+  serverTimestamp,
+  where  
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 import {
   getStorage,
@@ -21,7 +22,6 @@ import {
   uploadBytes,
   getDownloadURL
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-storage.js";
-
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -46,23 +46,32 @@ export { signOut };
 document.addEventListener("DOMContentLoaded", () => {
 
   // Check if user is signed in
- onAuthStateChanged(auth, (user) => {
-  if (user) {
-    const email = user.email;
-    const username = email.split("@")[0];
-    const capitalizedUsername = username.toUpperCase();
-    const stafID = document.getElementById("stafID");
-    stafID.textContent = capitalizedUsername;
-    
-    // Handle form submission
-    const submitButton = document.getElementById("subbtn");
-    submitButton.addEventListener("click", async (event) => {
-    event.preventDefault();
-    await addBungkusan(user);
-});
-  }
-});
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const email = user.email;
 
+      const stafQuery = query(collection(db, "staf"), where("emel", "==", email));
+      const querySnapshot = await getDocs(stafQuery);
+
+      if (!querySnapshot.empty) {
+        const stafData = querySnapshot.docs[0].data();
+        const name = stafData.nama;
+        const stafId = stafData.staf_id;
+        const capitalizedName = name.toUpperCase();
+
+        // Update the HTML elements
+        document.getElementById("nama").textContent = capitalizedName;
+        document.getElementById("stafID").textContent = stafId;
+
+        // Handle form submission
+        const submitButton = document.getElementById("subbtn");
+        submitButton.addEventListener("click", async (event) => {
+          event.preventDefault();
+          await addBungkusan(stafId, capitalizedName);
+        });
+      }
+    }
+  });
 
   // Get the sign out button
   const signOutButton = document.getElementById("signOut");
@@ -116,11 +125,11 @@ const generateNextId = () => {
 };
 
 // Tambah bungkusan ke pangkalan data
-const addBungkusan = async (user) => {
-  const noPengesanan = document.getElementById("no_pengesanan").value.trim();
-  const namaBungkusan = document.getElementById("nama_bungkusan").value.trim();
+const addBungkusan = async (stafId, capitalizedName) => {
+  const noPengesanan = document.getElementById("no_pengesanan").value.trim().toUpperCase();
+  const namaBungkusan = document.getElementById("nama_bungkusan").value.trim().toUpperCase();
   const statusBungkusan = document.getElementById("status_bungkusan").value.trim();
-  const lokasiBungkusan = document.getElementById("lokasi_bungkusan").value.trim();
+  const lokasiBungkusan = document.getElementById("lokasi_bungkusan").value.trim().toUpperCase();
   const gambarBungkusan = document.getElementById("gambar_bungkusan").files[0];
 
   // Check if any field is empty
@@ -129,24 +138,20 @@ const addBungkusan = async (user) => {
     return; // Stop further execution
   }
 
-  const userEmail = auth.currentUser.email;
-  const username = userEmail.split("@")[0];
-  const capitalizedUsername = username.toUpperCase();
-
   try {
     await getLatestId();
     // Jana ID Baru
     const newId = generateNextId();
 
-     // Muat Naik gambar bungkusan ke pangkalan data
-     const storageRef = ref(storage, `bungkusan/${newId}`);
-     await uploadBytes(storageRef, gambarBungkusan);
-     const gambarURL = await getDownloadURL(storageRef);
+    // Muat Naik gambar bungkusan ke pangkalan data
+    const storageRef = ref(storage, `bungkusan/${newId}`);
+    await uploadBytes(storageRef, gambarBungkusan);
+    const gambarURL = await getDownloadURL(storageRef);
 
     // Tambah bungkusan ke pangkalan data
     await addDoc(collection(db, "bungkusan"), {
       bungkusanID: newId,
-      stafID: capitalizedUsername,
+      staf: `${stafId} ${capitalizedName}`,
       no_pengesanan: noPengesanan,
       nama_bungkusan: namaBungkusan,
       status_bungkusan: statusBungkusan,
@@ -207,10 +212,6 @@ document.querySelector('.navigation').addEventListener('mouseleave', () => {
   setActiveMenuItem();
 });
 
-
-
-
-
 // Menu Toggle
 let toggle = document.querySelector(".toggle");
 let navigation = document.querySelector(".navigation");
@@ -220,3 +221,13 @@ toggle.onclick = function () {
   navigation.classList.toggle("active");
   main.classList.toggle("active");
 };
+
+// Back button event listener
+const backButton = document.querySelector(".back-button");
+
+if (backButton) {
+  backButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    window.history.back(); // Go back to the previous page
+  });
+}

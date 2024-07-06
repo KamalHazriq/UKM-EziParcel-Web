@@ -45,13 +45,23 @@ export { signOut };
 // Wait for the DOM to fully load
 document.addEventListener("DOMContentLoaded", async () => {
   // Check if user is signed in
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, async (user) => {
     if (user) {
       const email = user.email;
-      const username = email.split("@")[0];
-      const capitalizedUsername = username.toUpperCase();
-      const stafID = document.getElementById("stafID");
-      stafID.textContent = capitalizedUsername;
+  
+        const stafQuery = query(collection(db, "staf"), where("emel", "==", email));
+        const querySnapshot = await getDocs(stafQuery);
+  
+        if (!querySnapshot.empty) {
+          const stafData = querySnapshot.docs[0].data();
+          const name = stafData.nama;
+          const stafId = stafData.staf_id;
+          const capitalizedName = name.toUpperCase();
+  
+          // Update the HTML elements
+          document.getElementById("nama").textContent = capitalizedName;
+          document.getElementById("stafID").textContent = stafId;
+        }
     }
   });
 

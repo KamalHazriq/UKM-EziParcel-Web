@@ -13,7 +13,8 @@ import {
   query, 
   orderBy, 
   limit,
-  serverTimestamp  
+  serverTimestamp,
+  where  
 } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
 
@@ -36,18 +37,30 @@ const db = getFirestore(app);
 export const auth = getAuth();
 export { signOut };
 
+let globalStafId = "";
+let globalCapitalizedName = "";
 
 // Wait for the DOM to fully load
 document.addEventListener("DOMContentLoaded", () => {
 
   // Check if user is signed in
- onAuthStateChanged(auth, (user) => {
-  if (user) {
-    const email = user.email;
-    const username = email.split("@")[0];
-    const capitalizedUsername = username.toUpperCase();
-    const stafID = document.getElementById("stafID");
-    stafID.textContent = capitalizedUsername;
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const email = user.email;
+  
+        const stafQuery = query(collection(db, "staf"), where("emel", "==", email));
+        const querySnapshot = await getDocs(stafQuery);
+  
+        if (!querySnapshot.empty) {
+          const stafData = querySnapshot.docs[0].data();
+          const name = stafData.nama;
+          globalStafId = stafData.staf_id;
+          globalCapitalizedName = name.toUpperCase();
+  
+          // Update the HTML elements
+          document.getElementById("nama").textContent = globalCapitalizedName;
+          document.getElementById("stafID").textContent = globalStafId;
+        }
     
   }
 });
@@ -118,11 +131,6 @@ const addAnnouncement = async (event) => {
     return; // Stop further execution
   }
 
-  // Get the email of the currently signed-in user
-  const userEmail = auth.currentUser.email;
-  const username = userEmail.split("@")[0];
-  const capitalizedUsername = username.toUpperCase();
-
   try {
     await getLatestId(); // Retrieve the latest ID from Firestore
     // Generate the new ID
@@ -136,7 +144,7 @@ const addAnnouncement = async (event) => {
       tajuk,
       isi,
       id: newId,
-      author: capitalizedUsername,
+      staf: `${globalStafId} ${globalCapitalizedName}`,
       masa: serverTimestamp(),
     });
     console.log("Announcement added successfully!");
