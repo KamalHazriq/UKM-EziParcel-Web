@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="icon" href="images/favicon.png" type="image/x-icon">
     
+    <style>
+
+        
+    </style>
+
 </head>
 
 <body>
@@ -93,12 +98,53 @@
                 </div>
               </div>
               
-              <div class="title">
+              <div class="header-container">
                 <h1>Laman Utama</h1>
-                <h2>Selamat datang ke UKM EziParcel, </h2>
-                <h2>Sila tekan salah satu fungsi untuk teruskan perjalanan anda!</h2>
+                
             </div>
             
+
+    <!-- ============ DASHBOARD ====== -->
+    <div class="dashboard-chart-container">
+    <div class="Dashboard">
+        <div class="card" style="background-color: yellow;">
+            <div>
+                <div id="checkin" class="data">0</div>
+                <div class="numbers" style="color:black;">BUNGKUSAN BELUM DIAMBIL</div>
+                <div class="logo"><ion-icon name="cube"></ion-icon></div>
+            </div>
+        </div>
+    
+        <div class="card" style="background-color: rgba(255, 0, 0, 0.932);">
+            <div>
+                <div id="janjitemu" class="data">0</div>
+                <div class="numbers" style="color:black">JANJI TEMU TERKINI</div>
+                <div class="logo"><ion-icon name="calendar"></ion-icon></div>
+            </div>
+        </div>
+    
+        <div class="card" style="background-color: rgb(61, 255, 3);">
+            <div>
+                <div id="taken" class="data">0</div>
+                <div class="numbers" style="color:black">BUNGKUSAN DIAMBIL HARI INI</div>
+                <div class="logo"><ion-icon name="bag-check"></ion-icon></div>
+            </div>
+        </div>
+    </div>
+    <div class="chart-wrapper">
+        <div class="chart-container line-chart">
+            <canvas id="lineChart"></canvas>
+        </div>
+        <div class="chart-container pie-chart">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+
+    
+    
+    </div>
+    
+    
 
         </div>
     </div>
@@ -106,6 +152,9 @@
     <!-- =========== Scripts =========  -->
     
     <script type="module" src="assets/js/main.js"></script>
+
+    <!-- Include Chart.js library from CDN -->
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- ====== ionicons ======= -->
     <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

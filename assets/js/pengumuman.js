@@ -59,18 +59,21 @@ document.addEventListener("DOMContentLoaded", async () => {
           document.getElementById("nama").textContent = capitalizedName;
           document.getElementById("stafID").textContent = stafId;
         }
-    
-  }
+    }
 });
+
+ // Store displayed document IDs in a Set and displayedPengumumanIDs Set
+ const displayedPengumumanIDs = new Set();
 
   // Function to perform search
   const performSearch = async () => {
     const searchText = document.getElementById("searchInput").value.toLowerCase();
     const pengumumanContainer = document.querySelector(".cardBox");
-
+    
     try {
       // Clear previous search results
       pengumumanContainer.innerHTML = '';
+      displayedPengumumanIDs.clear();
 
       // Retrieve pengumuman data from Firestore
       const q = query(collection(db, "pengumuman"), orderBy("masa", "desc"));
@@ -81,7 +84,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         const isi = pengumumanData.isi.toLowerCase();
 
         if (title.includes(searchText)||isi.includes(searchText)) {
-          // Display only the announcements that match the search text
+          const docId = doc.id;
+          // Check if the document has already been displayed
+          if (!displayedPengumumanIDs.has(docId)) {
+
+          // Display only the announcements
           const card = document.createElement("div");
           card.classList.add("card");
           const timestamp = pengumumanData.masa ? pengumumanData.masa.toDate().toLocaleString() : "Unknown";
@@ -94,6 +101,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             </div>
           `;
           pengumumanContainer.appendChild(card);
+          // Add the document ID to the Set
+          displayedPengumumanIDs.add(docId);
+        }
         }
       });
     } catch (error) {
@@ -132,6 +142,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const pengumumanContainer = document.querySelector(".cardBox");
 
     try {
+
+      // Clear previous search results
+      pengumumanContainer.innerHTML = '';
+
       // Retrieve pengumuman data from Firestore
       const q = query(collection(db, "pengumuman"), orderBy("masa", "desc"));
       const querySnapshot = await getDocs(q);

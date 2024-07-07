@@ -275,6 +275,101 @@ body {
   margin-right: 10px; 
 }
 
+/* Dashbord */
+
+.Dashboard {
+
+  align-items: center;
+
+  position: relative;
+  width: calc(100% - 40px);
+  margin-left: 20px;
+  padding: 20px;
+  display: flex; 
+  flex-direction: row; 
+  gap: 50px;
+}
+
+.Dashboard .card {
+  position: relative;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: px; /* Add margin between cards */
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  height: 150px;
+  width: 350px;
+  
+}
+
+.Dashboard .card .data {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  font-weight: 500;
+  font-size: 40px; /* Adjust font size of data */
+}
+
+.Dashboard .card .numbers {
+  position: absolute;
+  top: 80px; /* Adjust this value to position numbers below data */
+  left: 20px;
+  font-weight: 500;
+  font-size: 17px; /* Adjust font size of numbers */
+}
+
+.Dashboard .card .logo {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  opacity: 0.5;
+  width: 50px; /* Adjust size of the logo */
+  height: 50px; /* Adjust size of the logo */
+}
+
+.Dashboard .card .logo ion-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.chart-wrapper {
+  align-items: center;
+  margin-left: 20px;
+  display: flex;
+  gap: 10px; /* Adjust gap between charts */
+  margin-bottom: 0px; /* Optional margin for spacing */
+}
+
+.chart-container {
+  position: relative;
+  margin-right: 20px;
+  padding: 20px;
+  max-height: 400px;
+  display: flex; /* Make container flex to align items */
+  align-items: center; /* Center items vertically */
+}
+
+#lineChart {
+  width: 900px; /* Adjust width for each chart */
+  height: 450px; /* Ensure chart respects container height */
+}
+
+#myChart {
+  padding: 20px;
+  width: 400px; /* Adjust width for each chart */
+  height: 450px; /* Ensure chart respects container height */
+}
+
+
+canvas {
+  padding: 2rem;
+  display: block;
+  margin: auto;
+  border: 1px solid #f49131;
+  border-radius: 1rem;
+  max-height: 100%; /* Ensure canvas does not exceed container height */
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.8);
+}
 
 
 /* ======================= Cards ====================== */
@@ -562,24 +657,6 @@ body {
   
 }
 
-.details .cardHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-.cardHeader h2 {
-  font-weight: 600;
-  color: var(--blue);
-}
-.cardHeader .btn {
-  position: relative;
-  padding: 5px 10px;
-  background: var(--blue);
-  text-decoration: none;
-  color: var(--white);
-  border-radius: 6px;
-}
-
 .details table {
   width: 100%;
   border-collapse: collapse;
@@ -619,7 +696,7 @@ body {
 .status.pending {
   
   padding: 0px 10px;
-  background: #ffe600;
+  background: yellow;
   color: var(--black1);
   border-radius: 5px;
   font-size: 14px;
@@ -630,7 +707,7 @@ body {
 .status.return {
  
   padding: 0px 10px;
-  background: rgb(255, 69, 69);
+  background: red;
   color: var(--black1);
   border-radius: 5px;
   font-size: 14px;
@@ -704,9 +781,7 @@ button {
   .cardBox {
     grid-template-columns: repeat(1, 1fr);
   }
-  .cardHeader h2 {
-    font-size: 20px;
-  }
+ 
   .user {
     min-width: 40px;
   }
