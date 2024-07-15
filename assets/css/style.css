@@ -280,11 +280,14 @@ body {
 .Dashboard {
 
   position: relative;
-  width: 100%;
   padding: 20px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 50px;
+  width: calc(100% - 70px); /* Adjust width to account for left and right margins */
+  margin-left:20px; /* Add left and right margins */
+  margin-right: 50px;
+  box-sizing: border-box; /* Ensure padding and border are included in the width and height */
 }
 
 .Dashboard .card {
@@ -295,8 +298,7 @@ body {
   justify-content: space-between;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.1);
   text-align: left;
-  height: 150px;
-  width: 350px;
+ 
   
 }
 
@@ -325,13 +327,17 @@ body {
 }
 
 .chart-wrapper {
-  margin:auto;
+  
   position: relative;
-  width: 100%;
+  
   padding: 20px;
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-gap: 50px;
+  width: calc(100% - 70px); /* Adjust width to account for left and right margins */
+  margin-left:20px; /* Add left and right margins */
+  margin-right: 50px;
+  box-sizing: border-box; /* Ensure padding and border are included in the width and height */
   
 }
 
@@ -357,8 +363,9 @@ body {
   margin-left: 20px;
   padding: 20px;
   display: flex; 
-  flex-direction: row; 
+  flex-wrap: wrap;
   gap: 40px;
+  justify-content: left; /* Center the cards horizontally */
   
 }
 
@@ -369,16 +376,32 @@ body {
   margin-bottom: 30px; /* Add margin between cards */
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
   text-align: center;
-  max-height: 75px;
+  height: 150px;
   border:solid;
-  width: 300px;
+  width: 100%;
+  max-width: 400px;
 }
 
 .cardRow .card .numbers {
-  top: -20px;
-  position: relative;
   font-weight: 500;
-  font-size: 30px; /* Adjust font size of numbers */
+  font-size: 50px; /* Adjust font size of numbers */
+}
+
+.so-info{
+  margin-left:40px; 
+  
+}
+
+.so-info h2{
+  font-size: 35px;
+  font-weight: 500;
+  margin-bottom: 0px;
+}
+
+.so-info h3{
+  font-size: 20px;
+  font-weight: 200;
+  margin-bottom: 30px;
 }
 
 .cardBox {
@@ -510,23 +533,6 @@ body {
   height: auto;
   display: block;  
   
-}
-
-
-
-.so-info{
-  margin-left:40px; 
-  
-}
-
-.so-info h2{
-  font-weight: 500;
-  margin-bottom: 0px;
-}
-
-.so-info h3{
-  font-weight: 200;
-  margin-bottom: 30px;
 }
 
 .cardBox .card .adds {
@@ -717,6 +723,8 @@ button {
     height: auto;
   }
 
+  
+
   .navigation {
     left: -300px;
   }
@@ -748,9 +756,11 @@ button {
   }
 
   .Dashboard {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
-
+  .Dashboard .card {
+    min-width: 350px;  
+  }
 }
 
 @media (max-width: 768px) {
@@ -768,9 +778,12 @@ button {
 @media (max-width: 480px) {
 
   .Dashboard {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 
+  .Dashboard .card {
+    min-width: 350px;  
+  }
   .cardBox {
     grid-template-columns: repeat(1, 1fr);
   }
