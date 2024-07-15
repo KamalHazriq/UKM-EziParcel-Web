@@ -105,13 +105,16 @@
             
 
     <!-- ============ DASHBOARD ====== -->
-    <div class="dashboard-chart-container">
     <div class="Dashboard">
         <div class="card" style="background-color: yellow;">
             <div>
                 <div id="checkin" class="data">0</div>
                 <div class="numbers" style="color:black;">BUNGKUSAN BELUM DIAMBIL</div>
-                <div class="logo"><ion-icon name="cube"></ion-icon></div>
+                
+            </div>
+
+            <div class="iconBx">
+                <ion-icon name="cube"></ion-icon>
             </div>
         </div>
     
@@ -119,7 +122,11 @@
             <div>
                 <div id="janjitemu" class="data">0</div>
                 <div class="numbers" style="color:black">JANJI TEMU TERKINI</div>
-                <div class="logo"><ion-icon name="calendar"></ion-icon></div>
+                
+            </div>
+
+            <div class="iconBx">
+                <ion-icon name="calendar"></ion-icon>
             </div>
         </div>
     
@@ -127,22 +134,24 @@
             <div>
                 <div id="taken" class="data">0</div>
                 <div class="numbers" style="color:black">BUNGKUSAN DIAMBIL HARI INI</div>
-                <div class="logo"><ion-icon name="bag-check"></ion-icon></div>
+                
+            </div>
+
+            <div class="iconBx">
+                <ion-icon name="bag-check"></ion-icon>
             </div>
         </div>
     </div>
     <div class="chart-wrapper">
-        <div class="chart-container line-chart">
-            <canvas id="lineChart"></canvas>
-        </div>
+        
         <div class="chart-container pie-chart">
             <canvas id="myChart"></canvas>
         </div>
+        <div class="chart-container line-chart">
+            <canvas id="lineChart"></canvas>
+        </div>
     </div>
 
-    
-    
-    </div>
     
     
 

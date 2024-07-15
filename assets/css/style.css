@@ -275,26 +275,24 @@ body {
   margin-right: 10px; 
 }
 
-/* Dashbord */
+/* Dashboard */
 
 .Dashboard {
 
-  align-items: center;
-
   position: relative;
-  width: calc(100% - 40px);
-  margin-left: 20px;
+  width: 100%;
   padding: 20px;
-  display: flex; 
-  flex-direction: row; 
-  gap: 50px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 50px;
 }
 
 .Dashboard .card {
   position: relative;
   padding: 20px;
   border-radius: 20px;
-  margin-bottom: px; /* Add margin between cards */
+  display: flex;
+  justify-content: space-between;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.1);
   text-align: left;
   height: 150px;
@@ -303,73 +301,52 @@ body {
 }
 
 .Dashboard .card .data {
-  position: absolute;
-  top: 10px;
-  left: 20px;
+  position: relative;
   font-weight: 500;
   font-size: 40px; /* Adjust font size of data */
 }
 
 .Dashboard .card .numbers {
-  position: absolute;
-  top: 80px; /* Adjust this value to position numbers below data */
-  left: 20px;
+  margin-top: 10px;
   font-weight: 500;
   font-size: 17px; /* Adjust font size of numbers */
 }
 
-.Dashboard .card .logo {
-  position: absolute;
-  top: 10px;
-  right: 20px;
+.Dashboard .card .iconBx {
+  
   opacity: 0.5;
   width: 50px; /* Adjust size of the logo */
   height: 50px; /* Adjust size of the logo */
 }
 
-.Dashboard .card .logo ion-icon {
+.Dashboard .card .iconBx ion-icon {
   width: 100%;
   height: 100%;
 }
 
 .chart-wrapper {
-  align-items: center;
-  margin-left: 20px;
-  display: flex;
-  gap: 10px; /* Adjust gap between charts */
-  margin-bottom: 0px; /* Optional margin for spacing */
+  margin:auto;
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 50px;
+  
 }
 
 .chart-container {
   position: relative;
-  margin-right: 20px;
   padding: 20px;
-  max-height: 400px;
+  width: 100%;
   display: flex; /* Make container flex to align items */
   align-items: center; /* Center items vertically */
-}
-
-#lineChart {
-  width: 900px; /* Adjust width for each chart */
-  height: 450px; /* Ensure chart respects container height */
-}
-
-#myChart {
-  padding: 20px;
-  width: 400px; /* Adjust width for each chart */
-  height: 450px; /* Ensure chart respects container height */
-}
-
-
-canvas {
-  padding: 2rem;
-  display: block;
-  margin: auto;
   border: 1px solid #f49131;
   border-radius: 1rem;
-  max-height: 100%; /* Ensure canvas does not exceed container height */
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.8);
+  background: #fff;
 }
+
 
 
 /* ======================= Cards ====================== */
@@ -734,6 +711,12 @@ button {
 
 /* ====================== Responsive Design ========================== */
 @media (max-width: 991px) {
+
+  .chart-container{
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
   .navigation {
     left: -300px;
   }
@@ -763,6 +746,11 @@ button {
   .cardBox {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .Dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
 }
 
 @media (max-width: 768px) {
@@ -778,6 +766,11 @@ button {
 }
 
 @media (max-width: 480px) {
+
+  .Dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .cardBox {
     grid-template-columns: repeat(1, 1fr);
   }

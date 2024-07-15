@@ -239,6 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Define chart options for the pie chart, including the title
 const options = {
+  responsive: true,
   plugins: {
     title: {
       display: true,
@@ -340,6 +341,7 @@ const createNewLineChart = (labels, counts) => {
 
    // Define options for the line chart, including the title
    const options = {
+    responsive: true,
     plugins: {
       title: {
         display: true,
